@@ -1,0 +1,55 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+	{% for post in object_list %}
+		<div class="post">
+			{% if post.image %}
+	        	<center><img src="{{ post.image.url }}" class="img-responsive"></center>
+	        {% endif %}
+
+	        <h1 class="post_title"><a href="/blog/{{post.id}}">{{ post.title }}</a></h1>
+
+	        <div class="date">
+	        	<i class="glyphicon glyphicon-calendar"></i> {{ post.date|date:"j E Y"}}
+	        	<i style="padding-left: 10px; " class="glyphicon glyphicon-user"></i> {{ post.author }}
+	        </div>
+
+	        <p class="post_intro">{{ post.body|truncatewords:50}}</p>
+
+	        <a href="/blog/{{post.id}}">
+	        	<button class="my_btn">WIĘCEJ</button>
+	        </a>
+    	</div>
+	{% endfor %}
+
+	<center>
+		<div class="pagination">
+		    <span class="step-links">
+		    
+		        {% if object_list.has_previous %}
+		            <a href="?page={{ object_list.previous_page_number }}">
+		            	<button class="pagination_btn">← Previous</button>
+		            </a>
+		            <a href="/blog">
+		            	<button class="pagination_btn">First Page</button>
+		            </a>
+		        {% endif %}
+
+		        <span class="current">
+		            <button class="pagination_current_btn">Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}</button>
+		        </span>
+
+		        {% if object_list.has_next %}
+		        	<a href="?page={{ object_list.paginator.num_pages }}">
+		        		<button class="pagination_btn">Last Page</button>
+		        	</a>
+		            <a href="?page={{ object_list.next_page_number }}">
+		            	<button class="pagination_btn">Next →</button>
+		            </a>
+		        {% endif %}
+		    </span>
+		</div>
+</center>
+
+{% endblock %}
+<!-- <button type="button" class="btn btn-success outline">WIĘCEJ</button> -->

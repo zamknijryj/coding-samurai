@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+	<div class="post_page">
+		{% if post.image %}
+			<center><img src="{{ post.image.url }}" class="img-responsive"></center>
+		{% endif %}
+		<h3><a href="/blog/{{post.id}}">{{ post.title }}</a></h3>
+		<center><h6> Dodano: {{ post.date|date:"N j, Y" }}</h6></center>
+
+		<div class="post_content">
+			{{ post.body|safe|linebreaks}}
+		</div>
+	</div>
+	<br><br>
+{% endblock %}
